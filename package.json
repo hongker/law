@@ -7,12 +7,13 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "axios": "^1.1.2",
     "core-js": "^3.8.3",
+    "element-ui": "^2.15.10",
     "lib-flexible": "^0.3.2",
     "postcss-pxtorem": "5.0.0",
     "px2rem-loader": "^0.1.9",
-    "unplugin-vue-components": "^0.22.8",
-    "vant": "^3.6.4",
+    "vant": "2.12.50",
     "vue": "^2.6.14",
     "vue-router": "^3.5.1",
     "vuex": "^3.6.2"

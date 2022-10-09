@@ -1,6 +1,4 @@
 const { defineConfig } = require('@vue/cli-service')
-const { VantResolver } = require('unplugin-vue-components/resolvers')
-const ComponentsPlugin = require('unplugin-vue-components/webpack')
 
 module.exports = defineConfig({
   transpileDependencies: true,
@@ -16,13 +14,6 @@ module.exports = defineConfig({
         remUnit: 48
     })
   },
-  configureWebpack: {
-    plugins: [
-      ComponentsPlugin({
-        resolvers: [VantResolver()],
-      }),
-    ],
-  },
   css: {
     loaderOptions: {
       postcss: {
@@ -33,8 +24,19 @@ module.exports = defineConfig({
               selectorBlackList  : ['vant-'], // 忽略转换正则匹配项
               propList   : ['*'],
             })
-          ]
+          ],
+          autoprefixer: {}
         }
+      }
+    }
+  },
+  devServer: {
+    proxy: {
+      "/api": {
+        target: "http://XX.XX.XX.XX:8084",
+        changeOrigin: true,
+        ws: true,
+        pathRewrite: { "^/api": "" },
       }
     }
   }

@@ -4,16 +4,27 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
 const routes = [
-  // {
-  //   path: '/',
-  //   name: 'home',
-  //   component: HomeView
-  // },
-  // {
-  //   path: '/about',
-  //   name: 'about',
-  //   component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-  // }
+  {
+      path: '/',
+      // redirect: 'rank1'
+      name: 'home',
+      component: () => import(/* webpackChunkName: "home" */ '@/views/home/index.vue') 
+  }, 
+  {
+      path: '/rank1',
+      name: 'rank1',
+      component: () => import(/* webpackChunkName: "ranks" */ '@/views/ranks/rank1.vue') 
+  },
+  {
+    path: '/rank2',
+    name: 'rank2',
+    component: () => import(/* webpackChunkName: "ranks" */ '@/views/ranks/rank2.vue')
+  },
+  {
+    path: '/region',
+    name: 'region',
+    component: () => import(/* webpackChunkName: "cash" */ '@/views/cash/region.vue')
+  }
 ]
 
 const router = new VueRouter({
