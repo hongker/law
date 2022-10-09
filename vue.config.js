@@ -1,4 +1,41 @@
 const { defineConfig } = require('@vue/cli-service')
+const { VantResolver } = require('unplugin-vue-components/resolvers')
+const ComponentsPlugin = require('unplugin-vue-components/webpack')
+
 module.exports = defineConfig({
-  transpileDependencies: true
+  transpileDependencies: true,
+  chainWebpack: config => {
+    config.module
+      .rule('css')
+      .test(/\.css$/)
+      .oneOf('vue')
+      .resourceQuery(/\?vue/)
+      .use('px2rem')
+      .loader('px2rem-loader')
+      .options({
+        remUnit: 48
+    })
+  },
+  configureWebpack: {
+    plugins: [
+      ComponentsPlugin({
+        resolvers: [VantResolver()],
+      }),
+    ],
+  },
+  css: {
+    loaderOptions: {
+      postcss: {
+        postcssOptions: {
+          plugins: [
+            require('postcss-pxtorem')({
+              rootValue : 75, // 换算的基数
+              selectorBlackList  : ['vant-'], // 忽略转换正则匹配项
+              propList   : ['*'],
+            })
+          ]
+        }
+      }
+    }
+  }
 })
