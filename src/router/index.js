@@ -24,6 +24,11 @@ const routes = [
     path: '/region',
     name: 'region',
     component: () => import(/* webpackChunkName: "cash" */ '@/views/cash/region.vue')
+  },
+  {
+    path: '/prove',
+    name: 'prove',
+    component: () => import(/* webpackChunkName: "cash" */ '@/views/cash/prove.vue')
   }
 ]
 

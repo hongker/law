@@ -1,0 +1,178 @@
+.container {
+    padding: 88px 30px 186px;
+    background-image: url('@/assets/imgs/bg1.jpg');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    width: 100vw;
+    min-height: 100vh;
+    .tabs {
+        width: 458px;
+        height: 110px;
+        display: block;
+        margin: auto;
+        position: relative;
+        &.tabs2{
+            width: 312px;
+        }
+        .tab-btns {
+            position: absolute;
+            z-index: 1;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            >div {
+                width: 50%;
+                height: 100%;
+            }
+        }
+        .tab {
+            width: 100%;
+            height: 100%;
+        }
+    }
+    .tabs-where {
+        border: 5px solid #010501;
+        border-radius: 30px;
+        display: flex;
+        width: 410px;
+        height: 68px;
+        margin: 24px auto 0;
+        background: #837FF9;
+        overflow: hidden;
+        p {
+            background: #837FF9;
+            height: 100%;
+            font-weight: bold;
+            font-size: 32px;
+            line-height: 58px;
+            text-align: center;
+            &.active {
+                background: #F2CA46;
+            }
+        }
+        p:nth-child(1),p:nth-child(3) {
+            width: 120px;
+        }
+        p:nth-child(2) {
+            width: 170px;
+        }
+        p+p{
+            border-left: 5px solid #010501;
+        }
+
+    }
+    .col-type {
+        color: #040308;
+        font-size: 28px;
+        display: flex;
+        justify-content: center;
+        &.col-type2 {
+            p:nth-child(2) {
+                width: 355px;
+            }
+            p:nth-child(3) {
+                width: 240px;
+            }
+        }
+        p {
+            height: 100%;
+            text-align: center;
+            font-weight: bold;
+            &.normal {
+                font-weight: 500;
+            }
+            &.has-yuan {
+                color: #fff;
+            }
+            &.has-kuang {
+                background-color: #040308;
+                border-radius: 25px;
+                color: #EAE060
+            }
+            &.has-kuang-1 {
+                border: 5px solid #EB9C37;
+                border-radius: 22px;
+                color: #040308;
+                line-height: 48px;
+            }
+        }
+        p:nth-child(1) {
+            width: 66px;
+            span {
+                display: inline-block;
+                width: 50px;
+                height: 50px;
+                background-color: #050004;
+                border-radius: 50%;
+            }
+            img {
+               width: 50px;
+               height: auto;
+               margin-top: -20px; 
+            }
+        }
+        p:nth-child(2) {
+            width: 242px;
+        }
+        p:nth-child(3) {
+            width: 90px;
+        }
+        p:nth-child(4) {
+            width: 90px;
+        }
+        p:nth-child(5) {
+            width: 164px;
+        }
+    }
+    .header {
+        background: #EFECE1;
+        border-top: 5px solid #010501;
+        border-left: 5px solid #010501;
+        border-right: 5px solid #010501;
+        border-radius: 18px 18px 0 0;
+        width: fit-content;
+        margin: 18px auto 0;
+        p {
+            height: 58px;
+            line-height: 58px;
+        }
+        p+p{
+            border-left: 5px solid #050004;
+        }
+    }
+    .item {
+        background: #96B0F9;
+        border: 5px solid #010501;
+        border-radius: 18px;
+        padding: 0 12px;
+        align-items: center;
+        height: 98px;
+        &.no1 {
+            background: #F2CA46;
+        }
+        &.no2 {
+            background: #837FF9;
+        }
+        &.no3 {
+            background: #B8F488;
+        }
+        p {
+            height: 50px;
+            line-height: 50px;
+        }
+    }
+    .item+.item {
+        margin-top: 12px;
+    }
+    .self-item {
+        background: #F2CA46;
+        border-width: 0;
+        border-top: 5px solid #010501;
+        position: fixed;
+        height: 98px;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        border-radius: 0;
+    }
+}

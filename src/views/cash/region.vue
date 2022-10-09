@@ -32,7 +32,7 @@
                                 <div class="btn-group">
                                     <div class="disable" v-if="item == 1">已兑换</div>
                                     <div class="able" v-else @click="status_dialog = true">兑换</div>
-                                    <div class="able">查看</div>
+                                    <div class="able" @click="checkProve">查看</div>
                                 </div>
                             </div>
                         </div>
@@ -122,7 +122,7 @@ export default {
             tab: 1,
             record_dialog: false,
             address_dialog: false,
-            status_dialog: true,
+            status_dialog: false,
 
             params: {
                 name: '',
@@ -152,6 +152,9 @@ export default {
         },
         back() {
             this.$router.push({name: 'home'})
+        },
+        checkProve() {
+            this.$router.push({name: 'prove'})
         }
     },
     mounted() {
