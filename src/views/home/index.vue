@@ -31,10 +31,10 @@
                     </div>
                     <div class="list">
                         <div class="item col-type" :class="['no'+item]" v-for="item in 8" :key="item">
-                            <p class="normal col1">
-                                中国人民大学
+                            <p class="normal col1 oneline">
+                                中国人民大学中国人民大学
                             </p>
-                            <p class="normal col2">作品名称</p>
+                            <p class="normal col2 oneline">作品名称作品名称</p>
                             <p class="has-kuang col3">
                                 <img src="@/assets/imgs/home/star.png">
                                 <span>1026</span>
@@ -49,12 +49,12 @@
                     </div>
                     <div class="self-item item col-type">
                         <p class="normal has-kuang-1">
-                            99
+                            1000
                         </p>
-                        <p class="normal">
-                            中国人民大学
+                        <p class="normal oneline">
+                            中国人民大学中国人民大学
                         </p>
-                        <p class="normal">作品名称</p>
+                        <p class="normal oneline">作品名称</p>
                         <p class="has-kuang">
                             <img src="@/assets/imgs/home/star.png">
                             <span>1026</span>

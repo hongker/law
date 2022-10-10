@@ -1,5 +1,6 @@
 <template>
     <div class="container">
+        <img class="backicon" @click="$router.go(-1)" src="https://placeholder.smart-tools.cn/100x120/">
         <div class="tabs">
             <div class="tab-btns">
                 <div @click="changeTab(1)"></div>
@@ -28,7 +29,7 @@
                     <span v-if="item > 3">{{item}}</span>
                     <img :src="nos[item]" />
                 </p>
-                <p class="normal">中国人民大学</p>
+                <p class="normal oneline">中国人民大学中国人民大学</p>
                 <p>6850</p>
                 <p>6850</p>
                 <p class="has-kuang">500000</p>
@@ -36,9 +37,9 @@
         </div>
         <div class="self-item item col-type">
             <p class="normal has-kuang-1">
-                99
+                <span>1000</span>
             </p>
-            <p class="normal">中国人民大学</p>
+            <p class="normal oneline">中国人民大学中国人民大学</p>
             <p>6850</p>
             <p>6850</p>
             <p class="has-kuang">500000</p>

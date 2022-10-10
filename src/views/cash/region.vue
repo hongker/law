@@ -1,5 +1,6 @@
 <template>
     <div class="container">
+        <img class="backicon" @click="$router.go(-1)" src="https://placeholder.smart-tools.cn/100x120/">
         <div class="record" @click="record_dialog = true">兑奖记录</div>
         <div class="area-out">
             <div class="area-in">
@@ -81,11 +82,11 @@
                         </div>
                         <div class="item">
                             <p class="label">手机号码</p>
-                            <Input v-model="params.tel" placeholder="手机号"></Input>
+                            <Input type="number" v-model="params.tel" maxlength="11" placeholder="手机号"></Input>
                         </div>
                         <div class="item">
                             <p class="label">地址</p>
-                            <Input type="textarea" v-model="params.address" placeholder="北京市xxx区XXXXXXXXX路"></Input>
+                            <Input type="textarea" v-model="params.address" maxlength="20" placeholder="北京市xxx区XXXXXXXXX路"></Input>
                         </div>
                     </div>
                     <img class="close" src="https://placeholder.smart-tools.cn/100x200/" @click="address_dialog=false">
@@ -146,8 +147,16 @@ export default {
         },
         submit() { // 提交地址
             // 是否为空
+            if(this.params.name == '' || this.params.tel == '' || this.params.address == '') {
+                Message({type: 'warning',message: '请填写完整信息'})
+                return
+            }
             // 验证手机号
-            Message({type: 'success',message: '提交成功'})
+            if(!/^1[3-9]\d{9}$/.test(this.params.tel)) {
+                Message({type: 'warning',message: '手机号格式不正确'})
+                return
+            }
+
             this.address_dialog = false
         },
         back() {

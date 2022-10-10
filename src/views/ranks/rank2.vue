@@ -1,5 +1,6 @@
 <template>
     <div class="container">
+        <img class="backicon" @click="$router.go(-1)" src="https://placeholder.smart-tools.cn/100x120/">
         <div class="tabs tabs2">
             <div class="tab-btns">
                 <div @click="changeTab(1)"></div>
@@ -25,7 +26,7 @@
         </div>
         <div class="self-item item col-type col-type2">
             <p class="normal has-kuang-1">
-                99
+                <span>1000</span>
             </p>
             <p class="normal">中国人民大学</p>
             <p class="has-kuang">500000</p>
