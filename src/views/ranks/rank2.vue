@@ -301,6 +301,7 @@ export default {
             setTimeout(() => {
                 console.log('getData')
                 this.loading = false
+                this.rankResponse.list = [...this.rankResponse.list,...this.rankResponse.list]
             }, 2000)
             this.page++
         }
