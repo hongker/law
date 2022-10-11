@@ -60,9 +60,9 @@
           <span v-if="item.rank > 3">{{ item.rank }}</span>
           <img :src="nos[item.rank]" />
         </p>
-        <p class="normal" v-if="tab == 1">{{ item.school_name }}</p>
-        <p class="normal" v-else-if="tab == 2">{{ item.nickname }}</p>
-        <p class="normal" v-else>{{ item.region_name }}</p>
+        <p class="normal oneline" v-if="tab == 1">{{ item.school_name }}</p>
+        <p class="normal oneline" v-else-if="tab == 2">{{ item.nickname }}</p>
+        <p class="normal oneline" v-else>{{ item.region_name }}</p>
 
         <p v-if="tab == 1">{{ item.is_points }}</p>
         <p v-else-if="tab == 2">{{ item.points_score }}</p>
@@ -81,21 +81,21 @@
     <p class="load-tip" v-if="no_more">没有更多了</p>
     <div class="self-item item col-type" v-show="tab == 1">
       <p class="normal has-kuang-1">{{ rankResponse.info.rank }}</p>
-      <p class="normal" oneline>{{ rankResponse.info.school_name }}</p>
+      <p class="normal oneline">{{ rankResponse.info.school_name }}</p>
       <p>{{ rankResponse.info.is_points }}</p>
       <p>{{ rankResponse.info.is_video }}</p>
       <p class="has-kuang">{{ rankResponse.info.peoples }}</p>
     </div>
     <div class="self-item item col-type" v-show="tab == 2">
       <p class="normal has-kuang-1">{{ rankResponse.info.rank }}</p>
-      <p class="normal" oneline>{{ rankResponse.info.nickname }}</p>
+      <p class="normal oneline">{{ rankResponse.info.nickname }}</p>
       <p>{{ rankResponse.info.points_score }}</p>
       <p>{{ rankResponse.info.video_score }}</p>
       <p class="has-kuang">{{ rankResponse.info.total_score }}</p>
     </div>
     <div class="self-item item col-type" v-show="tab == 3">
       <p class="normal has-kuang-1">{{ rankResponse.info.rank }}</p>
-      <p class="normal" oneline>{{ rankResponse.info.region_name }}</p>
+      <p class="normal oneline">{{ rankResponse.info.region_name }}</p>
       <p>{{ rankResponse.info.is_points }}</p>
       <p>{{ rankResponse.info.is_video }}</p>
       <p class="has-kuang">{{ rankResponse.info.peoples }}</p>
@@ -139,8 +139,8 @@
           <span v-if="item.rank > 3">{{ item.rank }}</span>
           <img :src="nos[item.rank]" />
         </p>
-        <p class="normal" v-if="tab == 1">{{ item.nickname }}</p>
-        <p class="normal" v-else>{{ item.region_name }}</p>
+        <p class="normal oneline" v-if="tab == 1">{{ item.nickname }}</p>
+        <p class="normal oneline" v-else>{{ item.region_name }}</p>
         <p class="has-kuang" v-if="tab == 1">{{ item.total_score }}</p>
         <p class="has-kuang" v-else>{{ item.peoples }}</p>
       </div>
@@ -151,14 +151,14 @@
       <p class="normal has-kuang-1">
         <span>{{ rankResponse.info.rank }}</span>
       </p>
-      <p class="normal" oneline>{{ rankResponse.info.nickname }}</p>
+      <p class="normal oneline">{{ rankResponse.info.nickname }}</p>
       <p class="has-kuang">{{ rankResponse.info.total_score }}</p>
     </div>
     <div class="self-item item col-type col-type2" v-show="tab == 2">
       <p class="normal has-kuang-1">
         <span>{{ rankResponse.info.rank }}</span>
       </p>
-      <p class="normal" oneline>{{ rankResponse.info.region_name }}</p>
+      <p class="normal oneline">{{ rankResponse.info.region_name }}</p>
       <p class="has-kuang">{{ rankResponse.info.peoples }}</p>
     </div>
   </div>
@@ -288,6 +288,7 @@ export default {
             
           that.maxPage = ret.page_num;
           that.rankParam.page++
+          that.loading = false;
         }
       });
     },
@@ -320,12 +321,13 @@ export default {
       
       this.loading = true;
       console.log("loading...", this.page);
-      setTimeout(() => {
-        console.log("getData");
+      this.showMore();
+    //   setTimeout(() => {
+    //     console.log("getData");
         
-        this.showMore();
-        this.loading = false;
-      }, 2000);
+    //     this.showMore();
+    //     // this.loading = false;
+    //   }, 2000);
     },
   },
 };
