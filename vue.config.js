@@ -24,9 +24,9 @@ module.exports = defineConfig({
               // selectorBlackList  : ['vant-'], // 忽略转换正则匹配项
               propList   : ['*'],
               // exclude: /node_modules/i
-              // exclude: (file) => { 
-              //   return file.indexOf('rank') !== -1 
-              // }
+              exclude: (file) => { 
+                return file.indexOf('rank') !== -1 
+              }
             })
           ],
           autoprefixer: {}
