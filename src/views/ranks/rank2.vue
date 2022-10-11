@@ -1,6 +1,10 @@
 <template>
   <div class="container" v-if="user_type == 3">
-      <img class="backicon" @click="$router.go(-1)" src="@/assets/imgs/back.png">
+    <img
+      class="backicon"
+      @click="$router.go(-1)"
+      src="@/assets/imgs/back.png"
+    />
     <div class="tabs">
       <div class="tab-btns">
         <div @click="changeUserTab(1)"></div>
@@ -41,10 +45,14 @@
       <p>视频</p>
       <p>{{ tab_user_header_key[tab].num }}</p>
     </div>
-    <div class="list" v-infinite-scroll="load" infinite-scroll-disabled="disabled">
+    <div
+      class="list"
+      v-infinite-scroll="load"
+      infinite-scroll-disabled="disabled"
+    >
       <div
         class="item col-type"
-        :class="['no' + (index+1)]"
+        :class="['no' + (index + 1)]"
         v-for="(item, index) in rankResponse.list"
         :key="index"
       >
@@ -70,27 +78,27 @@
       </div>
     </div>
     <p class="load-tip" v-if="loading">加载中...</p>
-        <p class="load-tip" v-if="no_more">没有更多了</p>
-    <div class="self-item item col-type" v-show="tab==1">
-      <p class="normal has-kuang-1">{{rankResponse.info.rank}}</p>
-      <p class="normal" oneline>{{rankResponse.info.school_name}}</p>
-      <p>{{rankResponse.info.is_points}}</p>
-      <p>{{rankResponse.info.is_video}}</p>
-      <p class="has-kuang">{{rankResponse.info.peoples}}</p>
+    <p class="load-tip" v-if="no_more">没有更多了</p>
+    <div class="self-item item col-type" v-show="tab == 1">
+      <p class="normal has-kuang-1">{{ rankResponse.info.rank }}</p>
+      <p class="normal" oneline>{{ rankResponse.info.school_name }}</p>
+      <p>{{ rankResponse.info.is_points }}</p>
+      <p>{{ rankResponse.info.is_video }}</p>
+      <p class="has-kuang">{{ rankResponse.info.peoples }}</p>
     </div>
-    <div class="self-item item col-type" v-show="tab==2">
-      <p class="normal has-kuang-1">{{rankResponse.info.rank}}</p>
-      <p class="normal" oneline>{{rankResponse.info.nickname}}</p>
-      <p>{{rankResponse.info.points_score}}</p>
-      <p>{{rankResponse.info.video_score}}</p>
-      <p class="has-kuang">{{rankResponse.info.total_score}}</p>
+    <div class="self-item item col-type" v-show="tab == 2">
+      <p class="normal has-kuang-1">{{ rankResponse.info.rank }}</p>
+      <p class="normal" oneline>{{ rankResponse.info.nickname }}</p>
+      <p>{{ rankResponse.info.points_score }}</p>
+      <p>{{ rankResponse.info.video_score }}</p>
+      <p class="has-kuang">{{ rankResponse.info.total_score }}</p>
     </div>
-    <div class="self-item item col-type" v-show="tab==3">
-      <p class="normal has-kuang-1">{{rankResponse.info.rank}}</p>
-      <p class="normal" oneline>{{rankResponse.info.region_name}}</p>
-      <p>{{rankResponse.info.is_points}}</p>
-      <p>{{rankResponse.info.is_video}}</p>
-      <p class="has-kuang">{{rankResponse.info.peoples}}</p>
+    <div class="self-item item col-type" v-show="tab == 3">
+      <p class="normal has-kuang-1">{{ rankResponse.info.rank }}</p>
+      <p class="normal" oneline>{{ rankResponse.info.region_name }}</p>
+      <p>{{ rankResponse.info.is_points }}</p>
+      <p>{{ rankResponse.info.is_video }}</p>
+      <p class="has-kuang">{{ rankResponse.info.peoples }}</p>
     </div>
   </div>
 
@@ -116,10 +124,14 @@
       <p>{{ tab_header_key[tab].name }}</p>
       <p>{{ tab_header_key[tab].num }}</p>
     </div>
-    <div class="list" v-infinite-scroll="load" infinite-scroll-disabled="disabled">
+    <div
+      class="list"
+      v-infinite-scroll="load"
+      infinite-scroll-disabled="disabled"
+    >
       <div
         class="item col-type col-type2"
-        :class="['no' + (index+1)]"
+        :class="['no' + (index + 1)]"
         v-for="(item, index) in rankResponse.list"
         :key="index"
       >
@@ -134,16 +146,20 @@
       </div>
     </div>
     <p class="load-tip" v-if="loading">加载中...</p>
-        <p class="load-tip" v-if="no_more">没有更多了</p>
-    <div class="self-item item col-type col-type2"  v-show="tab==1">
-      <p class="normal has-kuang-1"><span>{{rankResponse.info.rank}}</span></p>
-      <p class="normal" oneline>{{rankResponse.info.nickname}}</p>
-      <p class="has-kuang">{{rankResponse.info.total_score}}</p>
+    <p class="load-tip" v-if="no_more">没有更多了</p>
+    <div class="self-item item col-type col-type2" v-show="tab == 1">
+      <p class="normal has-kuang-1">
+        <span>{{ rankResponse.info.rank }}</span>
+      </p>
+      <p class="normal" oneline>{{ rankResponse.info.nickname }}</p>
+      <p class="has-kuang">{{ rankResponse.info.total_score }}</p>
     </div>
-    <div class="self-item item col-type col-type2"  v-show="tab==2">
-      <p class="normal has-kuang-1"><span>{{rankResponse.info.rank}}</span></p>
-      <p class="normal" oneline>{{rankResponse.info.region_name}}</p>
-      <p class="has-kuang">{{rankResponse.info.peoples}}</p>
+    <div class="self-item item col-type col-type2" v-show="tab == 2">
+      <p class="normal has-kuang-1">
+        <span>{{ rankResponse.info.rank }}</span>
+      </p>
+      <p class="normal" oneline>{{ rankResponse.info.region_name }}</p>
+      <p class="has-kuang">{{ rankResponse.info.peoples }}</p>
     </div>
   </div>
 </template>
@@ -157,7 +173,7 @@ import {
 export default {
   data() {
     return {
-      openid:'125542qq',
+      openid: "",
       user_type: 3,
       nos: {
         1: require("@/assets/imgs/ranks/1.png"),
@@ -175,19 +191,12 @@ export default {
       },
       tab: 1,
       tab_where: 3,
-      schoolParam: {
+      rankParam: {
         page: 1,
-        limit: 5,
         type: 1,
-      },
-      personalParam: {
-        page: 1,
-        type: 3,
+        openid:'',
       },
 
-      regionParam: {
-        page: 1,
-      },
       rankResponse: {
         info: {
           rank: 0,
@@ -195,25 +204,27 @@ export default {
         list: [],
       },
       loading: false,
-      page: 1,
       maxPage: 1,
     };
   },
   mounted() {
+    this.openid= '125542qq'
+    this.user_type = 3
+    this.rankParam.openid = this.openid
     if (this.user_type == 3) {
       this.getSchoolRank();
     } else {
       this.getPersonalRank();
     }
   },
-   computed: {
-      no_more () {
-        return this.page >= this.maxPage
-      },
-      disabled () {
-        return this.loading || this.no_more
-      }
+  computed: {
+    no_more() {
+      return this.page >= this.maxPage;
     },
+    disabled() {
+      return this.loading || this.no_more;
+    },
+  },
   methods: {
     changeUserTab(tab) {
       this.tab = tab;
@@ -241,41 +252,49 @@ export default {
     },
     changeWhereTab(tab) {
       this.tab_where = tab;
-      this.personalParam.type = tab
-      this.getPersonalRank()
+      this.rankParam.type = tab;
+      this.rankParam.page = 1
+      this.getPersonalRank();
     },
     // 加载更多
-    showMore(module) {
-      if (module=='school_rank') {
-        this.schoolParam.page++
-        this.getSchoolRank()
-      }else if (module == 'personal_rank') {
-        this.personalParam.page++
-        this.getPersonalRank()
-      }else {
-        this.regionParam.page++
-        this.getRegionRank()
+    showMore() {
+      
+      if (this.user_type == 3 )  {
+        if (this.tab == 1) {
+          this.getSchoolRank();
+        }else if (this.tab == 2) {
+          this.getPersonalRank();
+        }else {
+          this.getRegionRank();
+        }
+      } else {
+        if (this.tab == 1) {
+          this.getPersonalRank();
+        }else {
+          this.getRegionRank();
+        }
       }
     },
 
     // 获取高校排名
     getSchoolRank() {
       let that = this;
-      that.schoolParam.openid=that.openid
 
-      sendUserSchoolRankRequest(that.schoolParam).then(function (ret) {
+      sendUserSchoolRankRequest(that.rankParam).then(function (ret) {
         console.log(ret);
         if (ret) {
-          that.rankResponse = ret;
+          that.rankResponse.info = ret.info;
+          that.rankResponse.list.push.apply(that.rankResponse.list,ret.list);
+            
           that.maxPage = ret.page_num;
+          that.rankParam.page++
         }
       });
     },
     // 获取个人排名
     getPersonalRank() {
       let that = this;
-      that.personalParam.openid=that.openid
-      sendUserPersonalRankRequest(that.personalParam).then(function (ret) {
+      sendUserPersonalRankRequest(that.rankParam).then(function (ret) {
         console.log(ret);
         if (ret) {
           that.rankResponse = ret;
@@ -286,8 +305,7 @@ export default {
     // 获取区域排名
     getRegionRank() {
       let that = this;
-      that.regionParam.openid=that.openid
-      sendUserRegionRankRequest(that.regionParam).then(function (ret) {
+      sendUserRegionRankRequest(that.rankParam).then(function (ret) {
         console.log(ret);
         if (ret) {
           that.rankResponse = ret;
@@ -295,16 +313,20 @@ export default {
         }
       });
     },
-    load () {
-            this.loading = true
-            console.log('loading...', this.page)
-            setTimeout(() => {
-                console.log('getData')
-                this.loading = false
-                this.rankResponse.list = [...this.rankResponse.list,...this.rankResponse.list]
-            }, 2000)
-            this.page++
-        }
+    load() {
+      if (this.rankParam.page==1) {
+        return
+      }
+      
+      this.loading = true;
+      console.log("loading...", this.page);
+      setTimeout(() => {
+        console.log("getData");
+        
+        this.showMore();
+        this.loading = false;
+      }, 2000);
+    },
   },
 };
 </script>
