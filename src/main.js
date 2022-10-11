@@ -9,6 +9,8 @@ import 'lib-flexible'
 // import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import { post } from './request'
+import infiniteScroll from "vue-infinite-scroll";
+Vue.use(infiniteScroll);
 
 Vue.config.productionTip = false
 Vue.prototype.$post = post;
