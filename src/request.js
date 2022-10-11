@@ -42,7 +42,7 @@ axios.interceptors.request.use(
     config.data = JSON.stringify(config.data);
     config.headers = {
       'Content-Type': 'application/json',
-      'ClientDeviceType': 'web_mobile'
+      // 'ClientDeviceType': 'web_mobile'
     };
     showFullScreenLoading();
     return config;

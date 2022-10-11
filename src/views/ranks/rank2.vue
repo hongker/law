@@ -1,83 +1,310 @@
 <template>
-    <div class="container">
-        <img class="backicon" @click="$router.go(-1)" src="https://placeholder.smart-tools.cn/100x120/">
-        <div class="tabs tabs2">
-            <div class="tab-btns">
-                <div @click="changeTab(1)"></div>
-                <div @click="changeTab(2)"></div>
-            </div>
-            <img class="tab" src="@/assets/imgs/ranks/rank2_title1.png" v-show="tab === 1" >
-            <img class="tab" src="@/assets/imgs/ranks/rank2_title2.png" v-show="tab === 2" >
-        </div>
-        <div class="header col-type col-type2">
-            <p>名次</p>
-            <p>{{tab_header_key[tab].name}}</p>
-            <p>{{tab_header_key[tab].num}}</p>
-        </div>
-        <div class="list" v-infinite-scroll="load" infinite-scroll-disabled="disabled">
-            <div class="item col-type col-type2" :class="['no'+item]" v-for="item in list_len" :key="item">
-                <p class="normal has-yuan">
-                    <span v-if="item > 3">{{item}}</span>
-                    <img :src="nos[item]" />
-                </p>
-                <p class="normal">中国人民大学</p>
-                <p class="has-kuang">500000</p>
-            </div>
-        </div>
-        <p class="load-tip" v-if="loading">加载中...</p>
-        <p class="load-tip" v-if="no_more">没有更多了</p>
-        <div class="self-item item col-type col-type2">
-            <p class="normal has-kuang-1">
-                <span>1000</span>
-            </p>
-            <p class="normal">中国人民大学</p>
-            <p class="has-kuang">500000</p>
-        </div>
+  <div class="container" v-if="user_type == 3">
+      <img class="backicon" @click="$router.go(-1)" src="@/assets/imgs/back.png">
+    <div class="tabs">
+      <div class="tab-btns">
+        <div @click="changeUserTab(1)"></div>
+        <div @click="changeUserTab(2)"></div>
+        <div @click="changeUserTab(3)"></div>
+      </div>
+      <img
+        class="tab"
+        src="@/assets/imgs/ranks/rank1_title1.png"
+        v-show="tab === 1"
+      />
+      <img
+        class="tab"
+        src="@/assets/imgs/ranks/rank1_title2.png"
+        v-show="tab === 2"
+      />
+      <img
+        class="tab"
+        src="@/assets/imgs/ranks/rank1_title3.png"
+        v-show="tab === 3"
+      />
     </div>
+    <div class="tabs-where" v-show="tab === 2">
+      <p :class="{ active: tab_where === 3 }" @click="changeWhereTab(3)">
+        全校
+      </p>
+      <p :class="{ active: tab_where === 2 }" @click="changeWhereTab(2)">
+        全省/市
+      </p>
+      <p :class="{ active: tab_where === 1 }" @click="changeWhereTab(1)">
+        全国
+      </p>
+    </div>
+    <div class="header col-type">
+      <p>名次</p>
+      <p>{{ tab_user_header_key[tab].name }}</p>
+      <p>答题</p>
+      <p>视频</p>
+      <p>{{ tab_user_header_key[tab].num }}</p>
+    </div>
+    <div class="list" v-infinite-scroll="load" infinite-scroll-disabled="disabled">
+      <div
+        class="item col-type"
+        :class="['no' + (index+1)]"
+        v-for="(item, index) in rankResponse.list"
+        :key="index"
+      >
+        <p class="normal has-yuan">
+          <span v-if="item.rank > 3">{{ item.rank }}</span>
+          <img :src="nos[item.rank]" />
+        </p>
+        <p class="normal" v-if="tab == 1">{{ item.school_name }}</p>
+        <p class="normal" v-else-if="tab == 2">{{ item.nickname }}</p>
+        <p class="normal" v-else>{{ item.region_name }}</p>
+
+        <p v-if="tab == 1">{{ item.is_points }}</p>
+        <p v-else-if="tab == 2">{{ item.points_score }}</p>
+        <p v-else>{{ item.is_points }}</p>
+
+        <p v-if="tab == 1">{{ item.is_video }}</p>
+        <p v-else-if="tab == 2">{{ item.video_score }}</p>
+        <p v-else>{{ item.is_video }}</p>
+
+        <p class="has-kuang" v-if="tab == 1">{{ item.peoples }}</p>
+        <p class="normal" v-else-if="tab == 2">{{ item.total_score }}</p>
+        <p class="has-kuang" v-else>{{ item.peoples }}</p>
+      </div>
+    </div>
+    <p class="load-tip" v-if="loading">加载中...</p>
+        <p class="load-tip" v-if="no_more">没有更多了</p>
+    <div class="self-item item col-type" v-show="tab==1">
+      <p class="normal has-kuang-1">{{rankResponse.info.rank}}</p>
+      <p class="normal" oneline>{{rankResponse.info.school_name}}</p>
+      <p>{{rankResponse.info.is_points}}</p>
+      <p>{{rankResponse.info.is_video}}</p>
+      <p class="has-kuang">{{rankResponse.info.peoples}}</p>
+    </div>
+    <div class="self-item item col-type" v-show="tab==2">
+      <p class="normal has-kuang-1">{{rankResponse.info.rank}}</p>
+      <p class="normal" oneline>{{rankResponse.info.nickname}}</p>
+      <p>{{rankResponse.info.points_score}}</p>
+      <p>{{rankResponse.info.video_score}}</p>
+      <p class="has-kuang">{{rankResponse.info.total_score}}</p>
+    </div>
+    <div class="self-item item col-type" v-show="tab==3">
+      <p class="normal has-kuang-1">{{rankResponse.info.rank}}</p>
+      <p class="normal" oneline>{{rankResponse.info.region_name}}</p>
+      <p>{{rankResponse.info.is_points}}</p>
+      <p>{{rankResponse.info.is_video}}</p>
+      <p class="has-kuang">{{rankResponse.info.peoples}}</p>
+    </div>
+  </div>
+
+  <div class="container" v-else>
+    <div class="tabs tabs2">
+      <div class="tab-btns">
+        <div @click="changeTab(1)"></div>
+        <div @click="changeTab(2)"></div>
+      </div>
+      <img
+        class="tab"
+        src="@/assets/imgs/ranks/rank2_title1.png"
+        v-show="tab === 1"
+      />
+      <img
+        class="tab"
+        src="@/assets/imgs/ranks/rank2_title2.png"
+        v-show="tab === 2"
+      />
+    </div>
+    <div class="header col-type col-type2">
+      <p>名次</p>
+      <p>{{ tab_header_key[tab].name }}</p>
+      <p>{{ tab_header_key[tab].num }}</p>
+    </div>
+    <div class="list" v-infinite-scroll="load" infinite-scroll-disabled="disabled">
+      <div
+        class="item col-type col-type2"
+        :class="['no' + (index+1)]"
+        v-for="(item, index) in rankResponse.list"
+        :key="index"
+      >
+        <p class="normal has-yuan">
+          <span v-if="item.rank > 3">{{ item.rank }}</span>
+          <img :src="nos[item.rank]" />
+        </p>
+        <p class="normal" v-if="tab == 1">{{ item.nickname }}</p>
+        <p class="normal" v-else>{{ item.region_name }}</p>
+        <p class="has-kuang" v-if="tab == 1">{{ item.total_score }}</p>
+        <p class="has-kuang" v-else>{{ item.peoples }}</p>
+      </div>
+    </div>
+    <p class="load-tip" v-if="loading">加载中...</p>
+        <p class="load-tip" v-if="no_more">没有更多了</p>
+    <div class="self-item item col-type col-type2"  v-show="tab==1">
+      <p class="normal has-kuang-1"><span>{{rankResponse.info.rank}}</span></p>
+      <p class="normal" oneline>{{rankResponse.info.nickname}}</p>
+      <p class="has-kuang">{{rankResponse.info.total_score}}</p>
+    </div>
+    <div class="self-item item col-type col-type2"  v-show="tab==2">
+      <p class="normal has-kuang-1"><span>{{rankResponse.info.rank}}</span></p>
+      <p class="normal" oneline>{{rankResponse.info.region_name}}</p>
+      <p class="has-kuang">{{rankResponse.info.peoples}}</p>
+    </div>
+  </div>
 </template>
 <script>
-export default {
-    data() {
-        return {
-            nos: {
-                '1': require('@/assets/imgs/ranks/1.png'),
-                '2': require('@/assets/imgs/ranks/2.png'),
-                '3': require('@/assets/imgs/ranks/3.png'),
-            },
-            tab_header_key: {
-                '1': { name: '昵称', num: '累计积分' },
-                '2': { name: '省份', num: '参赛人数' },
-            },
-            list_len: 10,
-            tab:1,
-            tab_where:1,
+import {
+  sendUserPersonalRankRequest,
+  sendUserRegionRankRequest,
+  sendUserSchoolRankRequest,
+} from "@/assets/js/api.js";
 
-            loading: false
-        }
-    },
-    computed: {
+export default {
+  data() {
+    return {
+      openid:'125542qq',
+      user_type: 3,
+      nos: {
+        1: require("@/assets/imgs/ranks/1.png"),
+        2: require("@/assets/imgs/ranks/2.png"),
+        3: require("@/assets/imgs/ranks/3.png"),
+      },
+      tab_user_header_key: {
+        1: { name: "学校", num: "参赛总人数" },
+        2: { name: "昵称", num: "累计总积分" },
+        3: { name: "省份", num: "参赛总人数" },
+      },
+      tab_header_key: {
+        1: { name: "昵称", num: "累计积分" },
+        2: { name: "省份", num: "参赛人数" },
+      },
+      tab: 1,
+      tab_where: 3,
+      schoolParam: {
+        page: 1,
+        limit: 5,
+        type: 1,
+      },
+      personalParam: {
+        page: 1,
+        type: 3,
+      },
+
+      regionParam: {
+        page: 1,
+      },
+      rankResponse: {
+        info: {
+          rank: 0,
+        },
+        list: [],
+      },
+      loading: false,
+      page: 1,
+      maxPage: 1,
+    };
+  },
+  mounted() {
+    if (this.user_type == 3) {
+      this.getSchoolRank();
+    } else {
+      this.getPersonalRank();
+    }
+  },
+   computed: {
       no_more () {
-        return this.list_len >= 32
+        return this.page >= this.maxPage
       },
       disabled () {
         return this.loading || this.no_more
       }
     },
-    methods: {
-        changeTab(tab) {
-            this.tab = tab
-        },
-        changeWhereTab(tab) {
-            this.tab_where = tab
-        },
-        load () {
+  methods: {
+    changeUserTab(tab) {
+      this.tab = tab;
+      if (tab == 1) {
+        // 高校
+        this.getSchoolRank();
+      } else if (tab == 2) {
+        // 积分
+        this.getPersonalRank();
+      } else {
+        // 地区
+        this.getRegionRank();
+      }
+    },
+
+    changeTab(tab) {
+      this.tab = tab;
+      if (tab == 1) {
+        // 积分
+        this.getPersonalRank();
+      } else {
+        // 地区
+        this.getRegionRank();
+      }
+    },
+    changeWhereTab(tab) {
+      this.tab_where = tab;
+      this.personalParam.type = tab
+      this.getPersonalRank()
+    },
+    // 加载更多
+    showMore(module) {
+      if (module=='school_rank') {
+        this.schoolParam.page++
+        this.getSchoolRank()
+      }else if (module == 'personal_rank') {
+        this.personalParam.page++
+        this.getPersonalRank()
+      }else {
+        this.regionParam.page++
+        this.getRegionRank()
+      }
+    },
+
+    // 获取高校排名
+    getSchoolRank() {
+      let that = this;
+      that.schoolParam.openid=that.openid
+
+      sendUserSchoolRankRequest(that.schoolParam).then(function (ret) {
+        console.log(ret);
+        if (ret) {
+          that.rankResponse = ret;
+          that.maxPage = ret.page_num;
+        }
+      });
+    },
+    // 获取个人排名
+    getPersonalRank() {
+      let that = this;
+      that.personalParam.openid=that.openid
+      sendUserPersonalRankRequest(that.personalParam).then(function (ret) {
+        console.log(ret);
+        if (ret) {
+          that.rankResponse = ret;
+          that.maxPage = ret.page_num;
+        }
+      });
+    },
+    // 获取区域排名
+    getRegionRank() {
+      let that = this;
+      that.regionParam.openid=that.openid
+      sendUserRegionRankRequest(that.regionParam).then(function (ret) {
+        console.log(ret);
+        if (ret) {
+          that.rankResponse = ret;
+          that.maxPage = ret.page_num;
+        }
+      });
+    },
+    load () {
             this.loading = true
+            console.log('loading...', this.page)
             setTimeout(() => {
-                this.list_len += 10
+                console.log('getData')
                 this.loading = false
             }, 2000)
+            this.page++
         }
-    }
-}
+  },
+};
 </script>
 <style lang="less" scoped src="./style.less"></style>
