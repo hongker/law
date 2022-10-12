@@ -34,14 +34,14 @@ module.exports = defineConfig({
       }
     }
   },
-  devServer: {
-    proxy: {
-      "/api": {
-        target: "http://XX.XX.XX.XX:8084",
-        changeOrigin: true,
-        ws: true,
-        pathRewrite: { "^/api": "" },
-      }
-    }
-  }
+  // devServer: {
+  //   proxy: {
+  //     "/api": {
+  //       target: "http://pf.mayiyahei.net",
+  //       changeOrigin: true,
+  //       ws: true,
+  //       pathRewrite: { "^/api": "" },
+  //     }
+  //   }
+  // }
 })

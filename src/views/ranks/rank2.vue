@@ -208,7 +208,7 @@ export default {
     };
   },
   mounted() {
-    this.openid= '125542qq'
+    this.openid= '123456'
     this.user_type = 3
     this.rankParam.openid = this.openid
     if (this.user_type == 3) {

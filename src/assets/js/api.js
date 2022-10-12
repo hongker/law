@@ -2,7 +2,7 @@
 
 import { post } from "@/request"
 
-export const prefix = "http://pf.mayiyahei.net/app"
+export const prefix = "http://pf.mayiyahei.net/test/app"
 
 
 export const sendTrackListRequest = (data) => {
