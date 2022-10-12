@@ -219,7 +219,7 @@ export default {
   },
   computed: {
     no_more() {
-      return this.rankParam.page >= this.maxPage;
+      return this.rankParam.page > this.maxPage;
     },
     disabled() {
       return this.loading || this.no_more;
@@ -333,7 +333,7 @@ export default {
       }
       
       this.loading = true;
-      console.log("loading...", this.rankParam.page);
+      console.log("loading...", this.rankParam.page, this.maxPage, this.disabled, this.no_more, this.loading);
       this.showMore();
     //   setTimeout(() => {
     //     console.log("getData");
