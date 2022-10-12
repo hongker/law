@@ -219,15 +219,22 @@ export default {
   },
   computed: {
     no_more() {
-      return this.page >= this.maxPage;
+      return this.rankParam.page >= this.maxPage;
     },
     disabled() {
       return this.loading || this.no_more;
     },
   },
   methods: {
+    reset() {
+      this.rankParam.page = 1;
+      this.rankResponse.list = [];
+      this.rankResponse.info = {};
+      this.maxPage = 1;
+    },
     changeUserTab(tab) {
       this.tab = tab;
+      this.reset()
       if (tab == 1) {
         // 高校
         this.getSchoolRank();
@@ -242,6 +249,7 @@ export default {
 
     changeTab(tab) {
       this.tab = tab;
+      this.reset()
       if (tab == 1) {
         // 积分
         this.getPersonalRank();
@@ -253,7 +261,7 @@ export default {
     changeWhereTab(tab) {
       this.tab_where = tab;
       this.rankParam.type = tab;
-      this.rankParam.page = 1
+      this.reset()
       this.getPersonalRank();
     },
     // 加载更多
