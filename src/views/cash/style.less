@@ -64,6 +64,7 @@
             }
             .list {
                 margin-top: 22px;
+                min-height: 900px;
                 .item-out {
                     background: #fff;
                     border-radius: 23px;
@@ -237,12 +238,17 @@
             border-radius: 23px;
             padding: 24px;
             width: 596px;
+            height: 598px;
+            &.autoheight {
+                height: auto;
+            }
             .wrapper-in {
                 background: #4843D6;
                 border: 5px solid #010501;
                 border-radius: 23px;
                 position: relative;
                 padding: 70px 14px 14px;
+                height: 100%;
                 .title {
                     width: 408px;
                     height: 141px;
@@ -260,6 +266,8 @@
                     color: #fff;
                     margin-top: 22px;
                     padding: 0 10px;
+                    height: 70%;
+                    overflow-y: auto;
                     .item {
                         display: flex;
                         align-items: center;

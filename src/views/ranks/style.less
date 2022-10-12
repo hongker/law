@@ -6,6 +6,7 @@
     background-size: 100% auto;
     background-color: rgb(71,241,225);
     background-repeat: no-repeat;
+    background-attachment: fixed;
     width: 100vw;
     min-height: 100vh;
     .tabs {
@@ -84,13 +85,26 @@
             &.normal {
                 font-weight: 500;
             }
+            &.overscroll {
+                overflow-x: auto;
+                white-space: nowrap;
+                &::-webkit-scrollbar {
+                    display: none;
+                }
+            }
             &.has-yuan {
                 color: #fff;
             }
             &.has-kuang {
-                background-color: #040308;
-                border-radius: 25px;
-                color: #EAE060
+                padding: 0 10px;
+                span {
+                    background-color: #040308;
+                    border-radius: 25px;
+                    color: #EAE060;
+                    display: block;
+                    height: 100%;
+                    width: 100%;
+                }
             }
             &.has-kuang-1 {
                 display: flex;
@@ -125,7 +139,7 @@
             }
         }
         p:nth-child(2) {
-            width: 242px;
+            width: 232px;
         }
         p:nth-child(3) {
             width: 90px;
@@ -134,7 +148,7 @@
             width: 90px;
         }
         p:nth-child(5) {
-            width: 164px;
+            width: 174px;
         }
     }
     .header {

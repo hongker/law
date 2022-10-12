@@ -35,8 +35,8 @@
           <span v-if="item.rank > 3">{{ item.rank }}</span>
           <img :src="nos[item.rank]" />
         </p>
-        <p class="normal" v-if="tab == 1">{{ item.school_name }}</p>
-        <p class="normal" v-else-if="tab == 2">{{ item.nickname }}</p>
+        <p class="normal overscroll" v-if="tab == 1">{{ item.school_name }}</p>
+        <p class="normal overscroll" v-else-if="tab == 2">{{ item.nickname }}</p>
         <p class="normal" v-else>{{ item.region_name }}</p>
 
         <p v-if="tab == 1">{{ item.is_points }}</p>
@@ -47,9 +47,9 @@
         <p v-else-if="tab == 2">{{ item.video_score }}</p>
         <p v-else>{{ item.is_video }}</p>
 
-        <p class="has-kuang" v-if="tab == 1">{{ item.peoples }}</p>
-        <p class="normal" v-else-if="tab == 2">{{ item.total_score }}</p>
-        <p class="has-kuang" v-else>{{ item.peoples }}</p>
+        <p class="has-kuang" v-if="tab == 1"> <span>{{ item.peoples }}</span> </p>
+        <p class="has-kuang" v-else-if="tab == 2"><span>{{ item.total_score }}</span></p>
+        <p class="has-kuang" v-else><span>{{ item.peoples }}</span></p>
       </div>
     </div>
     <p class="load-tip" v-if="loading">加载中...</p>
@@ -59,21 +59,21 @@
       <p class="normal oneline">{{ rankResponse.info.school_name }}</p>
       <p>{{ rankResponse.info.is_points }}</p>
       <p>{{ rankResponse.info.is_video }}</p>
-      <p class="has-kuang">{{ rankResponse.info.peoples }}</p>
+      <p class="has-kuang"> <span>{{ rankResponse.info.peoples }}</span> </p>
     </div>
     <div class="self-item item col-type" v-show="tab == 2">
       <p class="normal has-kuang-1">{{ rankResponse.info.rank }}</p>
       <p class="normal oneline">{{ rankResponse.info.nickname }}</p>
       <p>{{ rankResponse.info.points_score }}</p>
       <p>{{ rankResponse.info.video_score }}</p>
-      <p class="has-kuang">{{ rankResponse.info.total_score }}</p>
+      <p class="has-kuang"> <span>{{ rankResponse.info.total_score }}</span> </p>
     </div>
     <div class="self-item item col-type" v-show="tab == 3">
       <p class="normal has-kuang-1">{{ rankResponse.info.rank }}</p>
       <p class="normal oneline">{{ rankResponse.info.region_name }}</p>
       <p>{{ rankResponse.info.is_points }}</p>
       <p>{{ rankResponse.info.is_video }}</p>
-      <p class="has-kuang">{{ rankResponse.info.peoples }}</p>
+      <p class="has-kuang"> <span>{{ rankResponse.info.peoples }}</span> </p>
     </div>
   </div>
 
@@ -128,6 +128,7 @@ import {
   sendUserRegionRankRequest,
   sendUserSchoolRankRequest,
 } from "@/assets/js/api.js";
+import { Message } from "element-ui";
 
 export default {
   data() {
@@ -246,7 +247,7 @@ export default {
 
       sendUserSchoolRankRequest(that.rankParam).then(function (ret) {
         if (ret.data.code != 0) {
-          that.$message.error(ret.data.msg)
+          Message.error(ret.data.msg)
           return
         }
         ret = ret.data.data
@@ -267,7 +268,7 @@ export default {
       let that = this;
       sendUserPersonalRankRequest(that.rankParam).then(function (ret) {
         if (ret.data.code != 0) {
-          that.$message.error(ret.data.msg)
+          Message.error(ret.data.msg)
           return
         }
         ret = ret.data.data
@@ -286,7 +287,7 @@ export default {
       let that = this;
       sendUserRegionRankRequest(that.rankParam).then(function (ret) {
         if (ret.data.code != 0) {
-          that.$message.error(ret.data.msg)
+          Message.error(ret.data.msg)
           return
         }
         ret = ret.data.data

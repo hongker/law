@@ -2,7 +2,7 @@
     <div class="container">
         <div class="area">
             <img class="title" src="@/assets/imgs/cash/cszm.png" >
-            <p class="num">编号：{{openid}}</p>
+            <p class="num" v-if="code">编号：{{code}}</p>
             <img class="avatar" :src="avatar" />
             <p class="name">{{nickname}}</p>
             <p class="desc">恭喜您在【第十八届全国青少年学法用法网上知识竞赛】系列活动中完成全部挑战！通过参与知识竞答与视频征集活动，您积极主动、仔细认真，争当尊法学法守法用法的好青年，为法治中国建设贡献了青春力量！</p>
@@ -24,6 +24,7 @@ export default {
             openid:'',
             nickname: '',
             avatar: '',
+            code: ''
         }
     },
     mounted() {
@@ -31,6 +32,7 @@ export default {
         this.openid=userInfo.openid
         this.nickname=userInfo.nickname
         this.avatar = userInfo.headimgurl
+        this.code = this.$route.query.code
     },
 }
 </script>

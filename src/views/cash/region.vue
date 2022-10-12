@@ -42,8 +42,8 @@
             </div>
         </div>
         <div class="page-group">
-            <img src="@/assets/imgs/cash/prev.png" @click="changePage(-1)">
-            <img src="@/assets/imgs/cash/next.png" @click="changePage(1)">
+            <img src="@/assets/imgs/cash/prev.png" @click="changePage(-1)" v-if="listParam.page != 1">
+            <img src="@/assets/imgs/cash/next.png" @click="changePage(1)" v-if="listParam.page != maxPage">
         </div>
         <img class="tip zs" src="@/assets/imgs/cash/tip.png">
 
@@ -57,7 +57,7 @@
                     <div class="list">
                         <div class="item" v-for="(item, index) in record.list" :key="index">
                             <p>{{item.title}}</p>
-                            <p>{{item.create_time}}</p>
+                            <p>{{dealTime(item.create_time)}}</p>
                             <p>{{item.score}}</p>
                         </div>
                     </div>
@@ -75,7 +75,7 @@
 
         <!-- 填写地址 -->
         <div class="dialog" v-if="address_dialog">
-            <div class="wrapper">
+            <div class="wrapper autoheight">
                 <div class="wrapper-in">
                     <img class="title" src="@/assets/imgs/cash/txdzt.png">
                     <div class="form">
@@ -103,19 +103,23 @@
 
         <!-- 兑换 -->
         <div class="dialog" v-if="status_dialog">
-            <div class="wrapper">
+            <div class="wrapper autoheight">
                 <div class="wrapper-in">
                     <img class="title" src="@/assets/imgs/cash/dhzt.png">
-                    <div class="status">
+                    <div class="status" v-show="exchangeStatus == 1">
                         <p>您使用{{exchangeResponse.score}}积分兑换【{{exchangeResponse.title}}】</p>
                         <p>兑换成功！</p>
+                    </div>
+                    <div class="status" v-show="exchangeStatus == 2">
+                        <p>{{exchangeFailText}}</p>
+                        <p>兑换失败！</p>
                     </div>
                     <img class="close" src="@/assets/imgs/close.png" @click="status_dialog=false">
                 </div>
             </div>
-            <div class="btn-group">
+            <!-- <div class="btn-group">
                 <img src="@/assets/imgs/cash/fhsyh.png" @click="back">
-            </div>
+            </div> -->
         </div>
     </div>
 </template>
@@ -136,7 +140,7 @@ export default {
         return {
             listParam: {
                 page: 1,
-                limit: 1,
+                limit: 4,
                 mode: 1, // 1-虚拟 2- 实物
             },
 
@@ -158,7 +162,10 @@ export default {
                 address: "",
                 phone: "",
             },
+            copyAddressParam: {},
             exchangeResponse: {},
+            exchangeFailText: '',
+            exchangeStatus: 1, // 1是成功， 2是失败
 
         }
     },
@@ -190,24 +197,30 @@ export default {
         upsertPrizeAddress() {
             let that = this;
             if (that.addressParam.username == '' || that.addressParam.phone == '' || that.addressParam.address == '') {
-                that.$message.error('请填写完整信息')
+                Message.error('请填写完整信息')
                 return
             }
 
             if (!/^1[3-9]\d{9}$/.test(that.addressParam.phone)) {
-                that.$message.error('手机号格式不正确')
+                Message.error('手机号格式不正确')
+                return
+            }
+            if(that.addressParam.username == that.copyAddressParam.username && 
+            that.addressParam.phone == that.copyAddressParam.phone && 
+            that.addressParam.address == that.copyAddressParam.address) {
+                Message.error('请修改信息')
                 return
             }
 
             upsertPrizeAddressRequest(that.addressParam).then(function (ret) {
                 if (ret.data.code != 0) {
-                    that.$message.error(ret.data.msg)
+                    Message.error(ret.data.msg)
                     return
                 }
                 ret = ret.data.data
                 console.log(ret)
                 that.address_dialog = false
-                that.$message.success(ret.data.msg)
+                Message.success(ret.data.msg)
 
             });
         },
@@ -215,7 +228,7 @@ export default {
             let that = this;
             sendPrizeListRequest(that.listParam).then(function (ret) {
                 if (ret.data.code != 0) {
-                    that.$message.error(ret.data.msg)
+                    Message.error(ret.data.msg)
                     return
                 }
                 ret = ret.data.data
@@ -232,13 +245,17 @@ export default {
             let that = this;
             console.log(id);
             sendPrizeExchangeRequest({ id: id}).then(function (ret) {
-                if (ret.data.code != 0) {
-                    that.$message.error(ret.data.msg)
+                if (ret.data.code != 0) { // 兑换失败
+                    // Message.error(ret.data.msg)
+                    that.exchangeStatus = 2
+                    that.exchangeFailText = ret.data.msg
+                    that.status_dialog = true;
                     return
                 }
                 ret = ret.data.data
                 console.log(ret);
                 if (ret) {
+                    that.exchangeStatus = 1
                     that.exchangeResponse = ret;
                     that.status_dialog = true;
                 }
@@ -249,7 +266,7 @@ export default {
             let that = this;
             sendPrizeRecordRequest({ }).then(function (ret) {
                 if (ret.data.code != 0) {
-                    that.$message.error(ret.data.msg)
+                    Message.error(ret.data.msg)
                     return
                 }
                 ret = ret.data.data
@@ -265,7 +282,10 @@ export default {
             this.$router.push({ name: 'home' })
         },
         view(id, code) {
-            this.$router.push({ name: 'prove' , params: {code:code}})
+            this.$router.push({ name: 'prove' , query: {code:code}})
+        },
+        dealTime(t) {
+            return t.split(' ')[0]
         }
     },
     mounted() {
@@ -275,6 +295,11 @@ export default {
         this.addressParam.address = userInfo.address
         this.addressParam.phone = userInfo.phone
         this.addressParam.username = userInfo.username
+        this.copyAddressParam = {
+            address: userInfo.address,
+            phone: userInfo.phone,
+            username: userInfo.username
+        }
     }
 }
 </script>

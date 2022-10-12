@@ -35,16 +35,16 @@
           <div class="content-type2">
             <div class="header col-type">
               <p class="col1">学校</p>
-              <p class="col2">作品名</p>
+              <!-- <p class="col2">作品名</p> -->
               <p class="col3">点赞数</p>
             </div>
             <div class="list">
               <div class="item col-type" :class="['no' + (index+1)]" v-for="(item, index) in videoResponse.list"
                 :key="index">
                 <p class="normal col1 oneline">{{item.school_name}}</p>
-                <p class="normal col2 oneline">{{item.title}}</p>
+                <!-- <p class="normal col2 oneline">{{item.title}}</p> -->
                 <p class="has-kuang col3">
-                  <img src="@/assets/imgs/home/star.png" />
+                  <!-- <img src="@/assets/imgs/home/star.png" /> -->
                   <span>{{item.praise}}</span>
                 </p>
                 <p class="sort" v-if="item.rank > 3">{{ item.rank }}</p>
@@ -58,9 +58,9 @@
             <div class="self-item item col-type">
               <p class="normal has-kuang-1">{{videoResponse.info.rank}}</p>
               <p class="normal oneline">{{videoResponse.info.school_name}}</p>
-              <p class="normal oneline">{{videoResponse.info.title}}</p>
+              <!-- <p class="normal oneline">{{videoResponse.info.title}}</p> -->
               <p class="has-kuang">
-                <img src="@/assets/imgs/home/star.png" />
+                <!-- <img src="@/assets/imgs/home/star.png" /> -->
                 <span>{{videoResponse.info.praise}}</span>
               </p>
             </div>
@@ -109,53 +109,30 @@
           <img class="title title1" src="@/assets/imgs/home/hdjl.png" />
           <div class="content-type4">
             <div class="group">
-              <img class="group-title" src="@/assets/imgs/home/grz.png" />
+              <!-- <img class="group-title" src="@/assets/imgs/home/grz.png" /> -->
               <div class="grid">
                 <div class="grid-item-out">
                   <div class="grid-item-in">
-                    <p>电话手表</p>
-                    <img src="https://placeholder.smart-tools.cn/100x120/" />
+                    <img class="one" src="@/assets/imgs/home/jb.png" />
+                    <p>获取300积分</p>
                   </div>
                 </div>
                 <div class="grid-item-out">
                   <div class="grid-item-in">
-                    <p>电话手表</p>
-                    <img src="https://placeholder.smart-tools.cn/100x120/" />
+                    <img  class="two" src="@/assets/imgs/home/z.png" />
+                    <p>荣誉纪念牌匾</p>
                   </div>
                 </div>
                 <div class="grid-item-out">
                   <div class="grid-item-in">
-                    <p>电话手表</p>
-                    <img src="https://placeholder.smart-tools.cn/100x120/" />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="group">
-              <img class="group-title" src="@/assets/imgs/home/gxz.png" />
-              <div class="grid">
-                <div class="grid-item-out">
-                  <div class="grid-item-in">
-                    <p>电话手表</p>
-                    <img src="https://placeholder.smart-tools.cn/100x120/" />
+                    <img  class="three" src="@/assets/imgs/home/sp.png" />
+                    <p>视频选入<br/>“云展馆”展播</p>
                   </div>
                 </div>
                 <div class="grid-item-out">
                   <div class="grid-item-in">
-                    <p>电话手表</p>
-                    <img src="https://placeholder.smart-tools.cn/100x120/" />
-                  </div>
-                </div>
-                <div class="grid-item-out">
-                  <div class="grid-item-in">
-                    <p>电话手表</p>
-                    <img src="https://placeholder.smart-tools.cn/100x120/" />
-                  </div>
-                </div>
-                <div class="grid-item-out">
-                  <div class="grid-item-in">
-                    <p>电话手表</p>
-                    <img src="https://placeholder.smart-tools.cn/100x120/" />
+                    <img  class="four" src="@/assets/imgs/home/sxs.png" />
+                    <p>获“青益计划”<br/>实习生推选资格</p>
                   </div>
                 </div>
               </div>
@@ -182,7 +159,7 @@
     </div>
   </template>
   <script>
-  import { Carousel, CarouselItem } from "element-ui";
+  import { Carousel, CarouselItem, Message } from "element-ui";
   import { prefix, sendUserVideoRankRequest, sendUserWorksListRequest, sendReleasedVideoRequest } from "@/assets/js/api.js";
   export default {
     data() {
@@ -249,7 +226,7 @@
         sendUserVideoRankRequest(that.videoParam).then(function (ret) {
             console.log(ret);
           if (ret.data.code != 0) {
-            that.$message.error(ret.data.msg)
+            Message.error(ret.data.msg)
             return
           }
           ret = ret.data.data
@@ -278,7 +255,7 @@
         sendUserWorksListRequest({ type: type, limit: count * bannerNumber }).then(function (ret) {
             console.log(ret);
           if (ret.data.code != 0) {
-            that.$message.error(ret.data.msg)
+            Message.error(ret.data.msg)
             return
           }
           ret = ret.data.data
