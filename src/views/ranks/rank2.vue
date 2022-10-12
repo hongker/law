@@ -308,6 +308,9 @@ export default {
         if (ret) {
           that.rankResponse = ret;
           that.maxPage = ret.page_num;
+          
+          that.rankParam.page++
+          that.loading = false;
         }
       });
     },
@@ -319,6 +322,8 @@ export default {
         if (ret) {
           that.rankResponse = ret;
           that.maxPage = ret.page_num;
+          that.rankParam.page++
+          that.loading = false;
         }
       });
     },
@@ -328,7 +333,7 @@ export default {
       }
       
       this.loading = true;
-      console.log("loading...", this.page);
+      console.log("loading...", this.rankParam.page);
       this.showMore();
     //   setTimeout(() => {
     //     console.log("getData");
