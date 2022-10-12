@@ -6,7 +6,7 @@ import '@/assets/css/reset.css'
 import 'lib-flexible'
 // import Vant from 'vant';
 // import 'vant/lib/index.css';
-// import ElementUI from 'element-ui';
+import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import { post } from './request'
 import infiniteScroll from "vue-infinite-scroll";

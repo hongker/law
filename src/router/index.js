@@ -10,11 +10,7 @@ const routes = [
       name: 'home',
       component: () => import(/* webpackChunkName: "home" */ '@/views/home/index.vue') 
   }, 
-  {
-      path: '/rank1',
-      name: 'rank1',
-      component: () => import(/* webpackChunkName: "ranks" */ '@/views/ranks/rank1.vue') 
-  },
+  
   {
     path: '/rank2',
     name: 'rank2',

@@ -1,31 +1,15 @@
 <template>
   <div class="container" v-if="user_type == 3">
-    <img
-      class="backicon"
-      @click="$router.go(-1)"
-      src="@/assets/imgs/back.png"
-    />
+    <img class="backicon" @click="$router.go(-1)" src="@/assets/imgs/back.png" />
     <div class="tabs">
       <div class="tab-btns">
         <div @click="changeUserTab(1)"></div>
         <div @click="changeUserTab(2)"></div>
         <div @click="changeUserTab(3)"></div>
       </div>
-      <img
-        class="tab"
-        src="@/assets/imgs/ranks/rank1_title1.png"
-        v-show="tab === 1"
-      />
-      <img
-        class="tab"
-        src="@/assets/imgs/ranks/rank1_title2.png"
-        v-show="tab === 2"
-      />
-      <img
-        class="tab"
-        src="@/assets/imgs/ranks/rank1_title3.png"
-        v-show="tab === 3"
-      />
+      <img class="tab" src="@/assets/imgs/ranks/rank1_title1.png" v-show="tab === 1" />
+      <img class="tab" src="@/assets/imgs/ranks/rank1_title2.png" v-show="tab === 2" />
+      <img class="tab" src="@/assets/imgs/ranks/rank1_title3.png" v-show="tab === 3" />
     </div>
     <div class="tabs-where" v-show="tab === 2">
       <p :class="{ active: tab_where === 3 }" @click="changeWhereTab(3)">
@@ -45,24 +29,15 @@
       <p>视频</p>
       <p>{{ tab_user_header_key[tab].num }}</p>
     </div>
-    <div
-      class="list"
-      v-infinite-scroll="load"
-      infinite-scroll-disabled="disabled"
-    >
-      <div
-        class="item col-type"
-        :class="['no' + (index + 1)]"
-        v-for="(item, index) in rankResponse.list"
-        :key="index"
-      >
+    <div class="list" v-infinite-scroll="load" infinite-scroll-disabled="disabled">
+      <div class="item col-type" :class="['no' + (index + 1)]" v-for="(item, index) in rankResponse.list" :key="index">
         <p class="normal has-yuan">
           <span v-if="item.rank > 3">{{ item.rank }}</span>
           <img :src="nos[item.rank]" />
         </p>
-        <p class="normal oneline" v-if="tab == 1">{{ item.school_name }}</p>
-        <p class="normal oneline" v-else-if="tab == 2">{{ item.nickname }}</p>
-        <p class="normal oneline" v-else>{{ item.region_name }}</p>
+        <p class="normal" v-if="tab == 1">{{ item.school_name }}</p>
+        <p class="normal" v-else-if="tab == 2">{{ item.nickname }}</p>
+        <p class="normal" v-else>{{ item.region_name }}</p>
 
         <p v-if="tab == 1">{{ item.is_points }}</p>
         <p v-else-if="tab == 2">{{ item.points_score }}</p>
@@ -78,7 +53,7 @@
       </div>
     </div>
     <p class="load-tip" v-if="loading">加载中...</p>
-    <p class="load-tip" v-if="no_more">没有更多了</p>
+    <p class="load-tip" v-if="no_more" v-show="tab != 3">没有更多了</p>
     <div class="self-item item col-type" v-show="tab == 1">
       <p class="normal has-kuang-1">{{ rankResponse.info.rank }}</p>
       <p class="normal oneline">{{ rankResponse.info.school_name }}</p>
@@ -108,45 +83,29 @@
         <div @click="changeTab(1)"></div>
         <div @click="changeTab(2)"></div>
       </div>
-      <img
-        class="tab"
-        src="@/assets/imgs/ranks/rank2_title1.png"
-        v-show="tab === 1"
-      />
-      <img
-        class="tab"
-        src="@/assets/imgs/ranks/rank2_title2.png"
-        v-show="tab === 2"
-      />
+      <img class="tab" src="@/assets/imgs/ranks/rank2_title1.png" v-show="tab === 1" />
+      <img class="tab" src="@/assets/imgs/ranks/rank2_title2.png" v-show="tab === 2" />
     </div>
     <div class="header col-type col-type2">
       <p>名次</p>
       <p>{{ tab_header_key[tab].name }}</p>
       <p>{{ tab_header_key[tab].num }}</p>
     </div>
-    <div
-      class="list"
-      v-infinite-scroll="load"
-      infinite-scroll-disabled="disabled"
-    >
-      <div
-        class="item col-type col-type2"
-        :class="['no' + (index + 1)]"
-        v-for="(item, index) in rankResponse.list"
-        :key="index"
-      >
+    <div class="list" v-infinite-scroll="load" infinite-scroll-disabled="disabled">
+      <div class="item col-type col-type2" :class="['no' + (index + 1)]" v-for="(item, index) in rankResponse.list"
+        :key="index">
         <p class="normal has-yuan">
           <span v-if="item.rank > 3">{{ item.rank }}</span>
           <img :src="nos[item.rank]" />
         </p>
-        <p class="normal oneline" v-if="tab == 1">{{ item.nickname }}</p>
-        <p class="normal oneline" v-else>{{ item.region_name }}</p>
+        <p class="normal" v-if="tab == 1">{{ item.nickname }}</p>
+        <p class="normal" v-else>{{ item.region_name }}</p>
         <p class="has-kuang" v-if="tab == 1">{{ item.total_score }}</p>
         <p class="has-kuang" v-else>{{ item.peoples }}</p>
       </div>
     </div>
     <p class="load-tip" v-if="loading">加载中...</p>
-    <p class="load-tip" v-if="no_more">没有更多了</p>
+    <p class="load-tip" v-if="no_more" v-show="tab != 2">没有更多了</p>
     <div class="self-item item col-type col-type2" v-show="tab == 1">
       <p class="normal has-kuang-1">
         <span>{{ rankResponse.info.rank }}</span>
@@ -173,7 +132,6 @@ import {
 export default {
   data() {
     return {
-      openid: "",
       user_type: 3,
       nos: {
         1: require("@/assets/imgs/ranks/1.png"),
@@ -194,7 +152,6 @@ export default {
       rankParam: {
         page: 1,
         type: 1,
-        openid:'',
       },
 
       rankResponse: {
@@ -208,9 +165,8 @@ export default {
     };
   },
   mounted() {
-    this.openid= '123456'
-    this.user_type = 3
-    this.rankParam.openid = this.openid
+    let userInfo = JSON.parse(localStorage.getItem('userInfo'))
+    this.user_type = userInfo.user_type
     if (this.user_type == 3) {
       this.getSchoolRank();
     } else {
@@ -219,7 +175,7 @@ export default {
   },
   computed: {
     no_more() {
-      return this.rankParam.page > this.maxPage;
+      return this.rankParam.page >= this.maxPage;
     },
     disabled() {
       return this.loading || this.no_more;
@@ -266,19 +222,19 @@ export default {
     },
     // 加载更多
     showMore() {
-      
-      if (this.user_type == 3 )  {
+
+      if (this.user_type == 3) {
         if (this.tab == 1) {
           this.getSchoolRank();
-        }else if (this.tab == 2) {
+        } else if (this.tab == 2) {
           this.getPersonalRank();
-        }else {
+        } else {
           this.getRegionRank();
         }
       } else {
         if (this.tab == 1) {
           this.getPersonalRank();
-        }else {
+        } else {
           this.getRegionRank();
         }
       }
@@ -289,60 +245,74 @@ export default {
       let that = this;
 
       sendUserSchoolRankRequest(that.rankParam).then(function (ret) {
+        if (ret.data.code != 0) {
+          that.$message.error(ret.data.msg)
+          return
+        }
+        ret = ret.data.data
         console.log(ret);
         if (ret) {
           that.rankResponse.info = ret.info;
-          that.rankResponse.list.push.apply(that.rankResponse.list,ret.list);
-            
+          that.rankResponse.list.push.apply(that.rankResponse.list, ret.list);
+
           that.maxPage = ret.page_num;
           that.rankParam.page++
-          that.loading = false;
+
         }
+        that.loading = false;
       });
     },
     // 获取个人排名
     getPersonalRank() {
       let that = this;
       sendUserPersonalRankRequest(that.rankParam).then(function (ret) {
+        if (ret.data.code != 0) {
+          that.$message.error(ret.data.msg)
+          return
+        }
+        ret = ret.data.data
         console.log(ret);
         if (ret) {
-          that.rankResponse = ret;
+          that.rankResponse.info = ret.info;
+          that.rankResponse.list.push.apply(that.rankResponse.list,ret.list);
           that.maxPage = ret.page_num;
-          
           that.rankParam.page++
-          that.loading = false;
         }
+        that.loading = false;
       });
     },
     // 获取区域排名
     getRegionRank() {
       let that = this;
       sendUserRegionRankRequest(that.rankParam).then(function (ret) {
+        if (ret.data.code != 0) {
+          that.$message.error(ret.data.msg)
+          return
+        }
+        ret = ret.data.data
         console.log(ret);
         if (ret) {
-          that.rankResponse = ret;
+          that.rankResponse.info = ret.info;
+          that.rankResponse.list.push.apply(that.rankResponse.list,ret.list);
           that.maxPage = ret.page_num;
           that.rankParam.page++
-          that.loading = false;
         }
+        that.loading = false;
       });
     },
     load() {
-      if (this.rankParam.page==1) {
+      if (this.rankParam.page == 1) {
         return
       }
-      
+
       this.loading = true;
-      console.log("loading...", this.rankParam.page, this.maxPage, this.disabled, this.no_more, this.loading);
-      this.showMore();
-    //   setTimeout(() => {
-    //     console.log("getData");
-        
-    //     this.showMore();
-    //     // this.loading = false;
-    //   }, 2000);
+      setTimeout(() => {
+        this.showMore();
+      }, 500);
     },
   },
 };
 </script>
-<style lang="less" scoped src="./style.less"></style>
+<style lang="less" scoped src="./style.less">
+
+</style>

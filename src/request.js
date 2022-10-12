@@ -39,12 +39,7 @@ axios.defaults.baseURL = severUrl;
 // http request 拦截
 axios.interceptors.request.use(
   config => {
-    config.data = JSON.stringify(config.data);
-    config.headers = {
-      'Content-Type': 'application/json',
-      // 'ClientDeviceType': 'web_mobile'
-    };
-    showFullScreenLoading();
+    config.data.openid=localStorage.getItem('opid')
     return config;
   },
   error => {
@@ -56,23 +51,9 @@ axios.interceptors.request.use(
 
 axios.interceptors.response.use(
   response => {
-    const res = response.data;
-    if (res.code != 0) {
-      Message({
-        message: res.msg || '加载失败',
-        type: 'error',
-        duration: 5 * 1000
-      })
-    }
-    tryHideFullScreenLoading();
+    const res = response;
     return res;
   }, error => {
-    Message({
-      message: error.msg || '加载失败',
-      type: 'error',
-      duration: 5 * 1000
-    })
-    tryHideFullScreenLoading();
     return Promise.reject(error);
   }
 )
@@ -81,7 +62,7 @@ axios.interceptors.response.use(
 export function post(url, data = {}) {
   return new Promise((resolve, reject) => {
     axios.post(url, data).then(response => {
-      resolve(response.data)
+      resolve(response)
     }, err => {
       reject(err)
     })

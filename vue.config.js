@@ -25,7 +25,7 @@ module.exports = defineConfig({
               propList   : ['*'],
               // exclude: /node_modules/i
               exclude: (file) => { 
-                return file.indexOf('rank') !== -1 
+                return file.indexOf('xx') !== -1 
               }
             })
           ],

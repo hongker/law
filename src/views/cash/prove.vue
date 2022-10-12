@@ -2,9 +2,9 @@
     <div class="container">
         <div class="area">
             <img class="title" src="@/assets/imgs/cash/cszm.png" >
-            <p class="num">编号：20221015000001</p>
-            <img class="avatar" src="https://placeholder.smart-tools.cn/100x200/" />
-            <p class="name">团团</p>
+            <p class="num">编号：{{openid}}</p>
+            <img class="avatar" :src="avatar" />
+            <p class="name">{{nickname}}</p>
             <p class="desc">恭喜您在【第十八届全国青少年学法用法网上知识竞赛】系列活动中完成全部挑战！通过参与知识竞答与视频征集活动，您积极主动、仔细认真，争当尊法学法守法用法的好青年，为法治中国建设贡献了青春力量！</p>
             <div class="inscription">
                 <div>
@@ -14,17 +14,29 @@
             </div>
         </div>
         <img class="code" src="@/assets/imgs/cash/code.png" >
-        <img class="zs" src="https://placeholder.smart-tools.cn/100x200/" />
+        <img class="zs" src="@/assets/imgs/cash/bottom.png" />
     </div>
 </template>
 <script>
 export default {
-    
+    data() {
+        return {
+            openid:'',
+            nickname: '',
+            avatar: '',
+        }
+    },
+    mounted() {
+        let userInfo = JSON.parse(localStorage.getItem('userInfo'))
+        this.openid=userInfo.openid
+        this.nickname=userInfo.nickname
+        this.avatar = userInfo.headimgurl
+    },
 }
 </script>
 <style lang="less" scoped>
 .container {
-    background-image: url('@/assets/imgs/bg1.jpg');
+    background-image: url('@/assets/imgs/bg2.jpg');
     background-size: 100% auto;
     background-color: rgb(71,241,225);
     background-repeat: no-repeat;
