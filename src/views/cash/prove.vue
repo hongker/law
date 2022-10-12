@@ -25,7 +25,8 @@ export default {
 <style lang="less" scoped>
 .container {
     background-image: url('@/assets/imgs/bg1.jpg');
-    background-size: 100% 100%;
+    background-size: 100% auto;
+    background-color: rgb(71,241,225);
     background-repeat: no-repeat;
     width: 100vw;
     min-height: 100vh;
