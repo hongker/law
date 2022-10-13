@@ -140,7 +140,7 @@ export default {
         return {
             listParam: {
                 page: 1,
-                limit: 4,
+                limit: 3,
                 mode: 1, // 1-虚拟 2- 实物
             },
 
@@ -217,10 +217,13 @@ export default {
                     Message.error(ret.data.msg)
                     return
                 }
-                ret = ret.data.data
                 console.log(ret)
-                that.address_dialog = false
                 Message.success(ret.data.msg)
+                ret = ret.data.data
+                
+                that.address_dialog = false
+                that.copyAddressParam = that.addressParam
+                
 
             });
         },
@@ -258,6 +261,7 @@ export default {
                     that.exchangeStatus = 1
                     that.exchangeResponse = ret;
                     that.status_dialog = true;
+                    that.getList() // 刷新
                 }
 
             });
@@ -277,6 +281,7 @@ export default {
                 }
             });
         },
+        
 
         back() {
             this.$router.push({ name: 'home' })
@@ -291,15 +296,27 @@ export default {
     mounted() {
         // TODO 获取现有用户信息的地址
         this.getList()
-        let userInfo = JSON.parse(localStorage.getItem('userInfo'))
-        this.addressParam.address = userInfo.address
-        this.addressParam.phone = userInfo.phone
-        this.addressParam.username = userInfo.username
-        this.copyAddressParam = {
-            address: userInfo.address,
-            phone: userInfo.phone,
-            username: userInfo.username
-        }
+        this.$post('/user/user_info', {}).then((ret) => {
+            let userInfo = ret.data.data
+            console.log(userInfo)
+            this.addressParam.address = userInfo.address
+            this.addressParam.phone = userInfo.phone
+            this.addressParam.username = userInfo.username
+            this.copyAddressParam = {
+                address: userInfo.address,
+                phone: userInfo.phone,
+                username: userInfo.username
+            }
+        })
+        // let userInfo = JSON.parse(localStorage.getItem('userInfo'))
+        // this.addressParam.address = userInfo.address
+        // this.addressParam.phone = userInfo.phone
+        // this.addressParam.username = userInfo.username
+        // this.copyAddressParam = {
+        //     address: userInfo.address,
+        //     phone: userInfo.phone,
+        //     username: userInfo.username
+        // }
     }
 }
 </script>
