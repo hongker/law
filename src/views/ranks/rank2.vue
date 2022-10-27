@@ -78,6 +78,7 @@
   </div>
 
   <div class="container" v-else>
+    <img class="backicon" @click="$router.go(-1)" src="@/assets/imgs/back.png" />
     <div class="tabs tabs2">
       <div class="tab-btns">
         <div @click="changeTab(1)"></div>
